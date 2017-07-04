@@ -4,7 +4,7 @@ This manual is based on Mac OS with homebrew. However, all installation requirem
 detail such that it can be done from other systems as well.
 
 To get access to the content of this repository, you can clone it through the terminal:  
-```$ git clone https://bitbucket.org/vildenst/3d-heart-model-generation```.
+```$ git clone https://github.com/vildenst/heart-model-generator.git```.
 
 ## Software requirements ##
 
