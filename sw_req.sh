@@ -30,6 +30,7 @@ brew install insighttoolkit
 #Installing Meshalyzer
 brew install freeglut
 brew install fltk
+cd .. #out of step 1, still inside In_Silico_Heart_Models folder
 git clone https://github.com/cardiosolv/meshalyzer.git
 cd meshalyzer
 make
