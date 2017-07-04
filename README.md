@@ -3,9 +3,9 @@
 This manual is based on Mac OS with homebrew. However, all installation requirements are described in 
 detail such that it can be done from other systems as well. 
 
-l. Clone into this repository through the terminal from a suitable location on you Mac/computer:  
+1. Clone into this repository through the terminal from a suitable location on you Mac/computer:    
 ```$ git clone https://github.com/vildenst/In_Silico_Heart_Models.git```.
-l. Change into the repository by the following command: ```$ cd In_Silico_Heart_Models```.
+2. Change into the repository by the following command: ```$ cd In_Silico_Heart_Models```.
 
 
 ## Step 1: Software requirements ##
