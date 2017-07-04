@@ -1,10 +1,12 @@
 # Pipeline for patient specific 3D heart models #
 
 This manual is based on Mac OS with homebrew. However, all installation requirements are described in 
-detail such that it can be done from other systems as well.
+detail such that it can be done from other systems as well. 
 
-To get access to the content of this repository, you can clone it through the terminal:  
+l. Clone into this repository through the terminal from a suitable location on you Mac/computer:  
 ```$ git clone https://github.com/vildenst/In_Silico_Heart_Models.git```.
+l. Change into the repository by the following command: ```$ cd In_Silico_Heart_Models```.
+
 
 ## Step 1: Software requirements ##
 
