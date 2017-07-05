@@ -6,7 +6,7 @@ pip_fail=false
 
 #Downloading Xcode tools
 echo '--------Installing XCode tools--------'
-Xcode-select -—install 
+xcode-select -—install 
 
 
 #Installing homebrew to fetch the rest of the tools easier
