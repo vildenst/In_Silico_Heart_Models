@@ -45,7 +45,7 @@ pip install matplotlib
 #Installing cmake, vtk and itk
 echo '--------Installing cmake, vtk and itk--------'
 brew install cmake
-brew tap homebrew/science/
+brew tap homebrew/homebrew-science
 brew install vtk
 brew install insighttoolkit 
 
