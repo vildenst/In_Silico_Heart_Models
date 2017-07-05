@@ -45,13 +45,15 @@ pip install matplotlib
 #Installing cmake, vtk and itk
 echo '--------Installing cmake, vtk and itk--------'
 brew install cmake
+brew tap homebrew/science/
 brew install vtk
 brew install insighttoolkit 
 
 
 
 #Installing Meshalyzer
-echo 'Installing Meshalyzer.'
+echo '--------Installing Meshalyzer--------'
+brew cask install xquartz
 brew install freeglut
 brew install fltk
 git clone https://github.com/cardiosolv/meshalyzer.git
