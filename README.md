@@ -25,9 +25,10 @@ The tools installed by the script are as follows: [Homebrew](https://brew.sh) (P
 
 * The segmentation of MRI images is done in [Segment](http://medviso.com/download2/). For a detailed description on how to segment the images, see **Step_2/seg_manual.pdf**.
 * Some of the MRI images have a bad resolution. Feel free to use [OsiriX](http://www.osirix-viewer.com) or another DICOM viewer program to get a better overview over the images.
-* All files produced from Segment (.mat format) should be saved in a folder **seg**. You can create it by the command ```$ mkdir Step_2/seg```. It should now be located inside your Step_2 folder. It is important that the different .mat files are saved as **Patient_1.mat**, **Patient_2.mat**, ..., **Patient_N.mat**.
+* All files produced from Segment (.mat format) should be saved in a folder **seg**. You can create it by the command   
+```$ mkdir Step_2/seg```. **seg** should now be located inside your Step_2 folder. It is important that the different .mat files are saved as **Patient_1.mat**, **Patient_2.mat**, ..., **Patient_N.mat**.
 
-Step 2 is done when you have segmented all the images you wanted, and stored them in **seg** with the filenames described above.
+Step 2 is done when you segmented all the images you wanted, and stored them in **seg** with filenames described as above.
 
 ## Step 3: Generate early 3D models ##
 
