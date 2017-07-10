@@ -8,7 +8,7 @@ import os
 
 def exists_folders(path):	#checking if folders exist
 	if not os.path.isdir(path):
-		ps.makedirs(path)
+		os.makedirs(path)
 
 root=os.getcwd() #In_Silico_Heart_Models
 seg='/seg'
