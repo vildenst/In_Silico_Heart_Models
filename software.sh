@@ -1,4 +1,4 @@
-#!bin/bash -l
+#!/bin/bash -l
 #SBATCH --job-name=SW2
 #SBATCH --account=nn9249k
 #SBATCH --time=10:00:00
