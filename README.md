@@ -1,6 +1,6 @@
 # Pipeline for patient specific 3D heart models #
 
-This manual is based on the user having access to the computer cluster [Abel](http://www.uio.no/english/services/it/research/hpc/abel/), a Linux Operating system.
+This manual is based on the user having access to [Abel](http://www.uio.no/english/services/it/research/hpc/abel/), a computer cluster with Linux OS.
 <!-- This manual is based on Mac OS with homebrew. However, all installation requirements are described in 
 detail such that it can be done from other systems as well. 
 
@@ -26,6 +26,7 @@ Clone into this repository from a suitable location on your Abel account by the 
 
 ## Step 1: Software requirements ##
 * A Windows virtual machine ([VMWare](https://www.vmware.com), [Virtualbox](https://www.virtualbox.org) or [Parallels](http://www.parallels.com/eu/)) to run the program [Segment](http://medviso.com/download2/).
+* [Meshalyzer](https://github.com/cardiosolv/meshalyzer) to vizualize the finite element meshes.
 * On Abel: [vtk](http://www.vtk.org), [itk](https://itk.org) and [gmsh](http://gmsh.info). The script **software.sh** will install and build them for you. If you wish to install them manually, installation instructions are available here: [vtk](http://www.vtk.org/Wiki/VTK/Building/Linux), [itk](https://itk.org/Wiki/ITK/Getting_Started/Build/Linux) and gmsh. Cmake and Matlab are also required, but they are already available as [modules](http://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/modules.html) in Abel. 
 * After all SW is installed, run the script **build_folders.py** by the command ```$ python build_folders.py``` to create and build some necessary folders and programs respectively.
 
@@ -33,7 +34,6 @@ Clone into this repository from a suitable location on your Abel account by the 
 ## Step 2: Segmentation ##
 
 * The segmentation of MRI images is done in [Segment](http://medviso.com/download2/). For a detailed description on how to segment the images, see **Manual/seg_manual.pdf**.
-<!-- * Some of the MRI images have a bad resolution. Feel free to use [OsiriX](http://www.osirix-viewer.com) or another DICOM viewer program to get a better overview over the images. --> 
 * All files produced from Segment (.mat format) should be saved in the **seg** folder. It is important that the different .mat files are saved as **Patient_1.mat**, **Patient_2.mat**, ..., **Patient_N.mat**.
 * To copy files from your VM to **seg** on Abel, you can use scp or rsync: [Abel Faq](http://www.uio.no/english/services/it/research/hpc/abel/help/faq/).
 Step 2 is done when you have segmented all the images you wanted, and stored them in **seg** with filenames described as above.
@@ -50,4 +50,4 @@ Step 2 is done when you have segmented all the images you wanted, and stored the
 
 ## Step 5: Simulations ##
 * You can now run simulations for each patient. Inside a patient folder, run the command ```$ sbatch risk_strat_1_16.sh``` to start simulations. You can run several jobs for each patient, they will each work on an available site.
-* One patient can use a lot of space. Please do not run more patients than you have available space (often 500 GB). 
+* One patient can take up a lot of space (up to ~70 GB). Please do not run more patients than you have available space (often 500 GB). 
