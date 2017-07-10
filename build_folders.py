@@ -34,7 +34,7 @@ for path in folders:
 
 #need to build in both Scar and Convertion Process
 def make(path):
-	os.chdir(root+path)
+	os.chdir(root+'/'+path)
 	os.system('cmake ..')
 	os.system('make')
 
