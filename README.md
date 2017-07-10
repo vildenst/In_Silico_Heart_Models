@@ -32,11 +32,10 @@ Clone into this repository from a suitable location on your Abel account by the 
 
 ## Step 2: Segmentation ##
 
-* The segmentation of MRI images is done in [Segment](http://medviso.com/download2/). For a detailed description on how to segment the images, see **Segment_Manual/seg_manual.pdf**.
-* Some of the MRI images have a bad resolution. Feel free to use [OsiriX](http://www.osirix-viewer.com) or another DICOM viewer program to get a better overview over the images.
+* The segmentation of MRI images is done in [Segment](http://medviso.com/download2/). For a detailed description on how to segment the images, see **Manual/seg_manual.pdf**.
+<!-- * Some of the MRI images have a bad resolution. Feel free to use [OsiriX](http://www.osirix-viewer.com) or another DICOM viewer program to get a better overview over the images. --> 
 * All files produced from Segment (.mat format) should be saved in the **seg** folder. It is important that the different .mat files are saved as **Patient_1.mat**, **Patient_2.mat**, ..., **Patient_N.mat**.
-
-To copy files from your VM to **seg** on Abel, use the command: ```scp PATH```
+* To copy files from your VM to **seg** on Abel, you can use scp or rsync: [Abel Faq](http://www.uio.no/english/services/it/research/hpc/abel/help/faq/).
 Step 2 is done when you have segmented all the images you wanted, and stored them in **seg** with filenames described as above.
 
 ## Step 3: Generate finite element meshes ##
@@ -46,5 +45,9 @@ Step 2 is done when you have segmented all the images you wanted, and stored the
 * When done, your files should be stored in the FEM folder under a date spesific subfolder.
 
 ## Step 4: Stimulation Coordinates ##
+* [Meshalyzer](https://github.com/cardiosolv/meshalyzer) is used to pick out the different coordinates to pace from. A detailed description on how to find the coordinates can be found in **Manuals/meshalyzer_manual.pdf**. 
+* When done, all five coordinates should be stored in a file **stim_coord.dat** inside each patient folder in FEM.
 
 ## Step 5: Simulations ##
+* You can now run simulations for each patient. Inside a patient folder, run the command ```$ sbatch risk_strat_1_16.sh``` to start simulations. You can run several jobs for each patient, they will each work on an available site.
+* One patient can use a lot of space. Please do not run more patients than you have available space (often 500 GB). 
