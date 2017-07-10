@@ -38,8 +38,10 @@ def make(path):
 	os.system('cmake ..')
 	os.system('make')
 
+os.system('module load cmake')
 for i in [Conv_build, Scar_build]:
 	make(i)
 
 #need to compile C program from .msh to .elem and .pts
+os.chdir(root)
 os.system('gcc msh2carp.c -o msh2carp.out')
