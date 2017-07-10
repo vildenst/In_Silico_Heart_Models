@@ -11,7 +11,7 @@
 #include "itkIntensityWindowingImageFilter.h"
 
 #include <vtkDataSetSurfaceFilter.h>
-#include <itkImageToVTKImageFilter.h>
+#include "itkImageToVTKImageFilter.h"
 #include "vtkSmartPointer.h"
 #include "vtkPolyData.h"
 #include "vtkUnstructuredGrid.h"
