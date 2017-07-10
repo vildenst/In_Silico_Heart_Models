@@ -38,7 +38,6 @@ def make(path):
 	os.system('cmake ..')
 	os.system('make')
 
-os.system('module load cmake')
 for i in [Conv_build, Scar_build]:
 	make(i)
 
