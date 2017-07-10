@@ -11,18 +11,18 @@ def exists_folders(path):	#checking if folders exist
 		os.makedirs(path)
 
 root=os.getcwd() #In_Silico_Heart_Models
-seg='/seg'
-Surfaces='/Surfaces'
-FEM='/FEM'
-Conv_build='/Conversion_Process/ConvertFile/build'
-Conv_Data='/Conversion_Process/Data'
-Matlab_Data='/Matlab_Process/Data'
+seg='seg'
+Surfaces='Surfaces'
+FEM='FEM'
+Conv_build='Conversion_Process/ConvertFile/build'
+Conv_Data='Conversion_Process/Data'
+Matlab_Data='Matlab_Process/Data'
 Matlab_align=Matlab_Data+'/Aligned'
 Matlab_scar=Matlab_Data+'/ScarImages'
 Matlab_seg=Matlab_Data+'/Seg'
 Matlab_text=Matlab_Data+'/Texts'
-Scar_data='/Scar_Process/Data'
-Scar_build='/Scar_Process/ScarProcessing/build'
+Scar_data='Scar_Process/Data'
+Scar_build='Scar_Process/ScarProcessing/build'
 
 folders=[seg, Surfaces, Conv_build, Conv_Data,
 Matlab_Data, Matlab_align, Matlab_scar,Matlab_seg, 
