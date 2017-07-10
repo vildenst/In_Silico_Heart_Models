@@ -2,7 +2,7 @@
 #SBATCH --job-name=SW
 #SBATCH --account=nn9249k
 #SBATCH --time=10:00:00
-#SBATCH --ntasks=8
+#SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=4G
 
 #SBATCH --output=out.txt
@@ -15,6 +15,8 @@ module load cmake
 module load gcc
 
 #creates Program folder if it doesn't exist
-if [ ! -d "Hello" ]; then
+if [ ! -d "Vilde" ]; then
 	mkdir Programs
 fi 
+
+module list
