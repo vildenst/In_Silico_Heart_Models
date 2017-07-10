@@ -17,7 +17,7 @@ detail such that it can be done from other systems as well.
 The tools installed by the script are as follows: [Homebrew](https://brew.sh) (Package manager for Mac), 
 [Python](http://python.org) (included scipy, matplotlib and numpy), [Meshalyzer](https://github.com/cardiosolv/meshalyzer) 
 (visualizes meshes), [vtk](http://www.vtk.org), [itk](https://itk.org) and [cmake](https://cmake.org).
-* Access to a computer cluster/ supercomputer. Steps 4 and 6 are not possible to run on a normal Mac or computer.
+* Access to a computer cluster. Steps 4 and 6 are not possible to run on a normal Mac or computer.
 
 
 
