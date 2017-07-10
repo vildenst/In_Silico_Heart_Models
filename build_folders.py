@@ -34,8 +34,8 @@ for path in folders:
 
 #need to build in both Scar and Convertion Process
 for build in [Conv_build, Scar_build]:
-	os.system(build'/cmake ..')
-	os.system(build'/make')
+	os.system('build/cmake ..')
+	os.system('build/make')
 
 #need to compile C program from .msh to .elem and .pts
 os.system('gcc msh2carp.c -o msh2carp.out')
