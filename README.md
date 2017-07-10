@@ -27,8 +27,8 @@ Clone into this repository from a suitable location on your Abel account by the 
 ## Step 1: Software requirements ##
 * A Windows virtual machine ([VMWare](https://www.vmware.com), [Virtualbox](https://www.virtualbox.org) or [Parallels](http://www.parallels.com/eu/)) to run the program [Segment](http://medviso.com/download2/).
 * [Meshalyzer](https://github.com/cardiosolv/meshalyzer) to vizualize the finite element meshes.
-* On Abel: [vtk](http://www.vtk.org), [itk](https://itk.org) and [gmsh](http://gmsh.info). The script **software.sh** will install and build them for you. If you wish to install them manually, installation instructions are available here: [vtk](http://www.vtk.org/Wiki/VTK/Building/Linux), [itk](https://itk.org/Wiki/ITK/Getting_Started/Build/Linux) and gmsh. Cmake and Matlab are also required, but they are already available as [modules](http://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/modules.html) in Abel. 
-* After all SW is installed, run the script **build_folders.py** by the command ```$ python build_folders.py``` to create and build some necessary folders and programs respectively.
+* On Abel: [vtk](http://www.vtk.org), [itk](https://itk.org) and [gmsh](http://gmsh.info). The script **software.sh** will install and build them for you if you don't have them installed.
+* After all SW is installed, run the script **build_folders.sh** by the command ```$ sbatch build_folders.sh``` to create and build some necessary folders and programs respectively.
 
 
 ## Step 2: Segmentation ##
