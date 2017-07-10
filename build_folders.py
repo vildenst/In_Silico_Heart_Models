@@ -14,8 +14,8 @@ root=os.getcwd() #In_Silico_Heart_Models
 seg='seg'
 Surfaces='Surfaces'
 FEM='FEM'
-Conv_build='Conversion_Process/ConvertFile/build'
-Conv_Data='Conversion_Process/Data'
+Conv_build='Convertion_Process/ConvertFile/build'
+Conv_Data='Convertion_Process/Data/'
 Matlab_Data='Matlab_Process/Data'
 Matlab_align=Matlab_Data+'/Aligned'
 Matlab_scar=Matlab_Data+'/ScarImages'
@@ -33,9 +33,13 @@ for path in folders:
 	#os.chdir(root)
 
 #need to build in both Scar and Convertion Process
-for build in [Conv_build, Scar_build]:
-	os.system('build/cmake ..')
-	os.system('build/make')
+def make(path):
+	os.chdir(root+path)
+	os.system('cmake ..')
+	os.system('make')
+
+for i in [Conv_build, Scar_build]:
+	make(i)
 
 #need to compile C program from .msh to .elem and .pts
 os.system('gcc msh2carp.c -o msh2carp.out')
