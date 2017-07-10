@@ -16,7 +16,7 @@ endif()
 add_executable(ScarProcessing MACOSX_BUNDLE ScarProcessing)
 
 target_link_libraries(ScarProcessing
-    ${Glue} ${ITK_LIBRARIES} ${VTK_LIBRARIES})
+    ${Glue} ${VTK_LIBRARIES} ${ITK_LIBRARIES})
 
 
 

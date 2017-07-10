@@ -10,7 +10,7 @@
 #include "itkIdentityTransform.h"
 #include "itkIntensityWindowingImageFilter.h"
 
-#include <vtkDataSetSurfaceFilter.h>
+#include "vtkDataSetSurfaceFilter.h"
 #include "itkImageToVTKImageFilter.h"
 #include "vtkSmartPointer.h"
 #include "vtkPolyData.h"
