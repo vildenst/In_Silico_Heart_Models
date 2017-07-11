@@ -7,7 +7,7 @@
 % For GOSH TOF patients at ED only (bi-ventricle)
 % Contact - kristin@simula.no, maciej.mar92@gmail.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-N = length(dir(['../seg/*.mat']))
+N = length(dir(['../seg/*.mat']));
 noSubjects = N;  % Total number of subjects 
 RVyes = 1;
 IsFullTemporal = 0;
