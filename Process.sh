@@ -5,13 +5,13 @@ echo 'Collecting files from MATLAB'
 ConvertionPath=$PWD/Convertion_Process
 ScarPath=$PWD/Scar_Process/Data
 cp -r $PWD/Matlab_Process/Data/Texts/. $ConvertionPath
-cp -r $PWD/Matlab_Process/Data/ScarImages/. $ScarPath
+cp -r $PWD/Matlab_Process/Data/ScarImages/MetaImages/. $ScarPath
 
 echo 'Deleting copies in MATLAB/Data'
 rm -f $PWD/Matlab_Process/Data/Aligned/*.mat
 rm -f $PWD/Matlab_Process/Data/Seg/*.mat
-rm -f $PWD/Matlab_Process/Data/ScarImages/*.raw
-rm -f $PWD/Matlab_Process/Data/ScarImages/*.mhd
+rm -f $PWD/Matlab_Process/Data/ScarImages/MetaImages/*.raw
+rm -f $PWD/Matlab_Process/Data/ScarImages/MetaImages/*.mhd
 rm -f $PWD/Matlab_Process/Data/Texts/*.txt
 
 echo 'Creating folder '$Date' for data storage'

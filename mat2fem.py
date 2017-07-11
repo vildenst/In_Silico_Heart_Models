@@ -4,49 +4,49 @@ import shutil
 
 root=os.getcwd()	#path to In_Silico_Heart_Models
 
-# print('####################################')
-# print('#PART 1: ALIGN ALL SLICES IN MATLAB#')
-# print('####################################')
+print('####################################')
+print('#PART 1: ALIGN ALL SLICES IN MATLAB#')
+print('####################################')
 
-# source ='{}/seg/'.format(root)
-# files=os.listdir(source)
-# N=len(files)	#number of .mat files to be processed
-# nr_errors=0
-# err_list=[]
-# dest='{}/Matlab_Process/Data/Seg/'.format(root)
-# for f in files:
-# 	shutil.copy(source+f,dest+f)	#all .mat files moved to dest
+source ='{}/seg/'.format(root)
+files=os.listdir(source)
+N=len(files)	#number of .mat files to be processed
+nr_errors=0
+err_list=[]
+dest='{}/Matlab_Process/Data/Seg/'.format(root)
+for f in files:
+	shutil.copy(source+f,dest+f)	#all .mat files moved to dest
 
-# os.chdir('Matlab_Process')
+os.chdir('Matlab_Process')
 
-# def run_matlab(nr_errors,err_list):
-# 	os.system('sh run_matlab.sh')	#running the matlab script
-# 	scar_folder ='{}/Matlab_Process/Data/ScarImages/MetaImages/'.format(root)
-# 	scar_files=os.listdir(scar_folder)
-# 	N2=len(scar_files)
-# 	if (N-nr_errors)*2 > N2:	#not all .mat files are processed
-# 		remove_error(N2,nr_errors,err_list)
+def run_matlab(nr_errors,err_list):
+	os.system('sh run_matlab.sh')	#running the matlab script
+	scar_folder ='{}/Matlab_Process/Data/ScarImages/MetaImages/'.format(root)
+	scar_files=os.listdir(scar_folder)
+	N2=len(scar_files)
+	if (N-nr_errors)*2 > N2:	#not all .mat files are processed
+		remove_error(N2,nr_errors,err_list)
 
-# def remove_error(N2,nr_errors,err_list):
-# 		error=(N2+nr_errors*2)/2+1
-# 		err_path='{}Patient_{}.mat'.format(dest,error)
-# 		os.remove(err_path)		
-# 		nr_errors+=1
-# 		err_list.append(error)
-# 		run_matlab(nr_errors,err_list)
+def remove_error(N2,nr_errors,err_list):
+		error=(N2+nr_errors*2)/2+1
+		err_path='{}Patient_{}.mat'.format(dest,error)
+		os.remove(err_path)		
+		nr_errors+=1
+		err_list.append(error)
+		run_matlab(nr_errors,err_list)
 
-# def remove_error_files(fname):
-# 	rm_path='{}/Data/Texts/'.format(os.getcwd())
-# 	for i in ['LVEndo','LVEpi','RVEndo','RVEpi']:
-# 		if os.path.isfile('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i)):
-# 			os.remove('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i))
+def remove_error_files(fname):
+	rm_path='{}/Data/Texts/'.format(os.getcwd())
+	for i in ['LVEndo','LVEpi','RVEndo','RVEpi']:
+		if os.path.isfile('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i)):
+			os.remove('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i))
 
-# run_matlab(nr_errors,err_list)
-# if err_list:	#errors occured
-# 	for nr in err_list:
-# 		fname='Patient_{}'.format(nr)
-# 		remove_error_files(fname)
-# 		print('{} was removed due to errors. Will continue without it.'.format(fname))
+run_matlab(nr_errors,err_list)
+if err_list:	#errors occured
+	for nr in err_list:
+		fname='Patient_{}'.format(nr)
+		remove_error_files(fname)
+		print('{} was removed due to errors. Will continue without it.'.format(fname))
 
 print('####################################')
 print('######PART 2: MAKING SURFACES#######')
