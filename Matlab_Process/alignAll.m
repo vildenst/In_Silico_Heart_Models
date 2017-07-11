@@ -11,7 +11,7 @@ home=getenv('HOME');
 toolbox_path='/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox';
 %path(path, [home,'',toolbox_path]);
 path(path, [home,'',toolbox_path,'','/class_image']);
-path(path, [home,'',toolbox_path,'','/class_mesh']);
+%path(path, [home,'',toolbox_path,'','/class_mesh']);
 %path(path, [home,'',toolbox_path,'','/processing']);
 %path(path, [home,'',toolbox_path,'','/processing/Basic']);
 %path(path, [home,'',toolbox_path,'','/processing/Geometry']);
