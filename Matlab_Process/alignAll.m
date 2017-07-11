@@ -9,17 +9,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 home=getenv('HOME');
 toolbox_path='/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox';
-path(path, [home,'',toolbox_path]);
+%path(path, [home,'',toolbox_path]);
 path(path, [home,'',toolbox_path,'','/class_image']);
 path(path, [home,'',toolbox_path,'','/class_mesh']);
-path(path, [home,'',toolbox_path,'','/processing']);
-path(path, [home,'',toolbox_path,'','/processing/Basic']);
-path(path, [home,'',toolbox_path,'','/processing/Geometry']);
+%path(path, [home,'',toolbox_path,'','/processing']);
+%path(path, [home,'',toolbox_path,'','/processing/Basic']);
+%path(path, [home,'',toolbox_path,'','/processing/Geometry']);
 path(path, [home,'',toolbox_path,'','/processing/IO']);
-path(path, [home,'',toolbox_path,'','/processing/Meshes']);
-path(path, [home,'',toolbox_path,'','/processing/Misc']);
-path(path, [home,'',toolbox_path,'','/processing/Sources']);
-path(path, [home,'',toolbox_path,'','/processing/Visu']);
+%path(path, [home,'',toolbox_path,'','/processing/Meshes']);
+%path(path, [home,'',toolbox_path,'','/processing/Misc']);
+%path(path, [home,'',toolbox_path,'','/processing/Sources']);
+%path(path, [home,'',toolbox_path,'','/processing/Visu']);
 N = length(dir(['../seg/*.mat']));
 noSubjects = N;  % Total number of subjects 
 RVyes = 1;
