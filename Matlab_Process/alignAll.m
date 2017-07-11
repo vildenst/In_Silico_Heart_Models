@@ -7,7 +7,11 @@
 % For GOSH TOF patients at ED only (bi-ventricle)
 % Contact - kristin@simula.no, maciej.mar92@gmail.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_image')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_mesh')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox')
 path
 N = length(dir(['../seg/*.mat']));
 noSubjects = N;  % Total number of subjects 
