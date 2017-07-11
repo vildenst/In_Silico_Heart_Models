@@ -7,18 +7,19 @@
 % For GOSH TOF patients at ED only (bi-ventricle)
 % Contact - kristin@simula.no, maciej.mar92@gmail.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_image')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_mesh')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Basic')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Geometry')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/IO')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Meshes')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Misc')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Sources')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Visu')
-path
+home=getenv('HOME');
+toolbox_path='/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox';
+path(path, [home,'',toolbox_path]);
+path(path, [home,'',toolbox_path,'','/class_image']);
+path(path, [home,'',toolbox_path,'','/class_mesh']);
+path(path, [home,'',toolbox_path,'','/processing']);
+path(path, [home,'',toolbox_path,'','/processing/Basic']);
+path(path, [home,'',toolbox_path,'','/processing/Geometry']);
+path(path, [home,'',toolbox_path,'','/processing/IO']);
+path(path, [home,'',toolbox_path,'','/processing/Meshes']);
+path(path, [home,'',toolbox_path,'','/processing/Misc']);
+path(path, [home,'',toolbox_path,'','/processing/Sources']);
+path(path, [home,'',toolbox_path,'','/processing/Visu']);
 N = length(dir(['../seg/*.mat']));
 noSubjects = N;  % Total number of subjects 
 RVyes = 1;
