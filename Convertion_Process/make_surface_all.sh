@@ -4,6 +4,7 @@ mkdir -p ./Data/vtkFiles
 mkdir -p ./Data/plyFiles
 mkdir -p ./Data/txtFiles
 
+module load python2
 
 for f in *.txt
 	do
