@@ -11,7 +11,13 @@ path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/cod
 path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_image')
 path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/class_mesh')
 path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing')
-path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Basic')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Geometry')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/IO')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Meshes')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Misc')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Sources')
+path(path, '/usit/abel/u1/vildenst/Programs/Medical_Image_Processing_Toolbox/code/MedicalImageProcessingToolbox/processing/Visu')
 path
 N = length(dir(['../seg/*.mat']));
 noSubjects = N;  % Total number of subjects 
