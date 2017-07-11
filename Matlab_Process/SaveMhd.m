@@ -52,5 +52,5 @@ image.data = squeeze(pixImage);
 
 % Saving image
 [~,name,~] = fileparts(filen);
-fileName=['Data/ScarImages/' name '.mhd'];
+fileName=['Data/ScarImages/MetaImages/' name '.mhd'];
 write_mhd(fileName, image, 'elementtype', 'uint8');
