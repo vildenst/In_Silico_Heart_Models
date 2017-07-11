@@ -23,23 +23,26 @@ Matlab_seg=Matlab_Data+'/Seg'
 Matlab_text=Matlab_Data+'/Texts'
 Scar_data='Scar_Process/Data'
 Scar_build='Scar_Process/ScarProcessing/build'
+Scar_meta=Scar_build+'/MetaImages'
 
 folders=[seg, Surfaces, Conv_build, Conv_Data,
 Matlab_Data, Matlab_align, Matlab_scar,Matlab_seg, 
-Matlab_text, Scar_data, Scar_build, FEM]
+Matlab_text, Scar_data, Scar_build, FEM, Scar_meta]
 
+#creates the folders above
 for path in folders:
-	exists_folders(path)
+	exists_folders(root+'/'+path)
 	#os.chdir(root)
 
 #need to build in both Scar and Convertion Process
-def make(path):
-	os.chdir(root+'/'+path)
-	os.system('cmake ..')
-	os.system('make')
+os.chdir(root+'/'+Scar_build)
+os.system('cmake ../ -DModuleITKVtkGlue=ON')
+os.system('make')
 
-for i in [Conv_build, Scar_build]:
-	make(i)
+os.chdir(root+'/'+Conv_build)
+os.system('cmake ..')
+os.system('make')
+
 
 #need to compile C program from .msh to .elem and .pts
 os.chdir(root)

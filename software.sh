@@ -18,27 +18,46 @@ root=$PWD 	#saving path to In_Silico_Heart_Models
 cd ~		#returning to login folder to install Programs folder
 
 #creates Program folder if it doesn't exist
-if [ ! -d "Test_Programs" ]; then
-	mkdir Test_Programs
+if [ ! -d "Programs" ]; then
+	mkdir Programs
 fi 
 
-cd Test_Programs	#chaning to Programs folder to install VTK & ITK
-Test_Programs_path=$PWD
+cd Programs	#chaning to Programs folder to install VTK & ITK
+Programs_path=$PWD
+
+#moving matlab toolbox to Programs
+mv root/Medical_Image_Processing_Toolbox .
+
+#installing necessary python packages
+module load python2
+pip install --user numpy
+pip install --user scipy
+pip install --U matplotlib --user
 
 #Installing VTK
-git clone git://vtk.org/VTK.git
-mkdir VTK-build && cd VTK-build	#cd into build folder
-#cmake ..
-#make -j15
-cd $Test_Programs_path
+if [ '$1'=true ]; then
+	git clone git://vtk.org/VTK.git
+	mkdir VTK-build && cd VTK-build	#cd into build folder
+	#cmake ..
+	#make -j15
+fi
 
 #Installing ITK
-git clone https://itk.org/ITK.git
-cd ITK 
-mkdir bin && cd bin
-#cmake ../ -DModuleItkVtkGlue=ON
-#make -j15
+if [ '$2'=true ]; then
+	cd $Programs_path
+	git clone https://itk.org/ITK.git
+	cd ITK 
+	mkdir bin && cd bin
+	#cmake ../ -DModuleItkVtkGlue=ON
+	#make -j15
+fi
 
-#Building ConvertFile
+#Installing gmsh
+if [ '$3'=true ]; then
+	cd $Programs_path
+fi
 
-#Building ScarProcessing
+export VTK_DIR=$Programs_path/VTK-build
+export ITK_DIR=$Programs_path/ITK/bin
+
+python build_folders.py
