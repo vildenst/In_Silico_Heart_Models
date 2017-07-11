@@ -11,9 +11,9 @@ Clone and access this repository from a suitable location on your Abel account b
 * On Abel: [vtk](http://www.vtk.org), [itk](https://itk.org) and [gmsh](http://gmsh.info). If you already have some of them intalled, please edit the following:
 	1. [if gmsh installed] Path to gmsh in **mat2fem.py** (line 76). 
 	2. [if VTK installed] Path to VTK in **software.sh** (line 60).
-	3. [if ITK installed] Path to ITK in **software.sh** (line 60).
+	3. [if ITK installed] Path to ITK in **software.sh** (line 61).
 * Run **software.sh** to create and build some necessary folders and programs respectively. If you want the script to install vtk, itk and/or gmsh, type True as arguments. Otherwise, type False:  
-```$sbatch software.sh [vtk: True/False] [itk: True/False] [gmsh: True/False]```. 
+```$sbatch software.sh [vtk:True/False] [itk:True/False] [gmsh:True/False]```. 
 
 
 ## Step 2: Segmentation ##
@@ -30,4 +30,4 @@ Clone and access this repository from a suitable location on your Abel account b
 * [Meshalyzer](https://github.com/cardiosolv/meshalyzer) is used to pick out the different coordinates to pace from. A detailed description on how to find the coordinates can be found in **Manuals/meshalyzer_manual.pdf**. When done, all five coordinates should be stored in a file **stim_coord.dat** inside each patient folder in FEM.
 
 ## Step 5: Simulations ##
-* You can now run simulations for each patient. Inside a patient folder, run the command ```$ sbatch risk_strat_1_16.sh``` to start simulations. You can run several jobs for a patient, they will each work on an available site.
+* You can now run simulations for each patient. Inside a patient folder, run ```$ sbatch risk_strat_1_16.sh```.
