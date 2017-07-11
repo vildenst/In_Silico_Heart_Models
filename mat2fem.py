@@ -55,7 +55,7 @@ print('####################################')
 import datetime
 now=datetime.datetime.now()
 time = now.strftime("%d.%m-%H.%M")
-#os.chdir('..')
+os.chdir('..')
 os.system('sh Process.sh {}'.format(time))	#running bash script
 
 # print('All .vtk files are stored in Surfaces/vtkFiles')
