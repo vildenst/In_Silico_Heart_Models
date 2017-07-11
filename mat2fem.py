@@ -19,10 +19,9 @@ for f in files:
 
 os.chdir('Matlab_Process')
 
-
 def run_matlab(nr_errors,err_list):
 	os.system('sh run_matlab.sh')	#running the matlab script
-	scar_folder ='{}/Matlab_Process/Data/ScarImages/'.format(root)
+	scar_folder ='{}/Matlab_Process/Data/ScarImages/MetaImages/'.format(root)
 	scar_files=os.listdir(scar_folder)
 	N2=len(scar_files)-1
 	if (N-nr_errors)*2 > N2:	#not all .mat files are processed
@@ -49,17 +48,17 @@ if err_list:	#errors occured
 		remove_error_files(fname)
 		print('{} was removed due to errors. Will continue without it.'.format(fname))
 
-print('####################################')
-print('######PART 2: MAKING SURFACES#######')
-print('####################################')
+# print('####################################')
+# print('######PART 2: MAKING SURFACES#######')
+# print('####################################')
 
-print('All .vtk files are stored in Surfaces/vtkFiles')
+# print('All .vtk files are stored in Surfaces/vtkFiles')
 
-import datetime
-now=datetime.datetime.now()
-time = now.strftime("%d.%m-%H.%M")
-os.chdir('..')
-os.system('sh Process.sh {}'.format(time))	#running bash script
+# import datetime
+# now=datetime.datetime.now()
+# time = now.strftime("%d.%m-%H.%M")
+# os.chdir('..')
+# os.system('sh Process.sh {}'.format(time))	#running bash script
 
 # print('####################################')
 # print('###PART 3: GENERATING FEM MODELS####')
