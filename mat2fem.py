@@ -3,9 +3,7 @@ import shutil
 
 root=os.getcwd()	#path to In_Silico_Heart_Models
 
-print('####################################')
-print('#PART 1: ALIGN ALL SLICES IN MATLAB#')
-print('####################################')
+#PART 1: MATLAB SLICE ALIGNMENT
 
 source ='{}/seg/'.format(root)
 files=os.listdir(source)
@@ -47,10 +45,7 @@ if err_list:	#errors occured
 		remove_error_files(fname)
 		print('{} was removed due to errors. Will continue without it.'.format(fname))
 
-print('####################################')
-print('######PART 2: MAKING SURFACES#######')
-print('####################################')
-
+#PART 2: SURFACE GENERATION
 import datetime
 now=datetime.datetime.now()
 time = now.strftime("%d.%m-%H.%M")
@@ -114,4 +109,3 @@ for i in range(1,N+1):
 
 print('All .msh and .out.txt files are stored in Surfaces/mshFiles')
 print('All FEM files are stored in FEM/Data-{}'.format(time))
-
