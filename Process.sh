@@ -1,6 +1,10 @@
 #!/bin/bash
 Date=Data-$1
 
+echo '#############################'
+echo '#PART 1 DONE: SLICES ALIGNED#'
+echo '#############################'
+
 echo 'Collecting files from MATLAB'
 ConvertionPath=$PWD/Convertion_Process
 ScarPath=$PWD/Scar_Process/Data
@@ -44,4 +48,8 @@ for i in 'vtk' 'raw' 'mhd'
 do
 	rm -f $PWD/Data/*.$i
 done
+
+echo '##################################'
+echo '###PART 2 DONE: MAKING SURFACES###'
+echo '##################################'
 
