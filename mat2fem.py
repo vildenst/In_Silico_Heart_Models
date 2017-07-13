@@ -1,5 +1,4 @@
 import os
-import sys
 import shutil 
 
 root=os.getcwd()	#path to In_Silico_Heart_Models
@@ -58,39 +57,61 @@ time = now.strftime("%d.%m-%H.%M")
 os.chdir('..')
 os.system('sh Process.sh {}'.format(time))	#running bash script
 
-# print('All .vtk files are stored in Surfaces/vtkFiles')
-# print('####################################')
-# print('###PART 3: GENERATING FEM MODELS####')
-# print('####################################')
+print('All .vtk files are stored in Surfaces/vtkFiles')
 
 
-# #Generating .msh files from .vtk files
-# def mergevtk(i,msh_src):	
-# 	lv_endo='{}/Patient_{}-LVEndo-Frame_1.vtk'.format(src,i)
-# 	rv_endo='{}/Patient_{}-RVEndo-Frame_1.vtk'.format(src,i)
-# 	rv_epi='{}/Patient_{}-RVEpi-Frame_1.vtk'.format(src,i)
-# 	msh='{}/Patient_{}.msh'.format(msh_src,i)
-# 	out='{}/Patient_{}.out.txt'.format(msh_src,i)
-# 	gmsh='/usit/abel/u1/vildenst/Internship/gmsh2/build/gmsh' #path to gmsh
-# 	os.system('gmsh -3 {} -merge {} {} biv_mesh.geo -o {} >& {}'.format(gmsh, lv_endo, rv_endo, rv_epi, msh, out))
+print('####################################')
+print('###PART 3: GENERATING FEM MODELS####')
+print('####################################')
 
-# src='/Surfaces/Data-{}/vtkFiles'.format(time)
-# msh_src='/Surfaces/Data-{}/mshFiles'.format(time)
-# fem_src='/FEM/Data-{}'.format(time)
-# os.mkdir(msh_scr)	#storing msh files here
-# os.mkdir(fem_src)	#storing pts, elem and tris files here
+Programs_path=os.getenv('HOME')+'/Programs'	#path to Programs
+#Generating .msh files from .vtk files
+def mergevtk(i,msh_src):	
+	lv_endo='{}/Patient_{}-LVEndo-Frame_1.vtk'.format(src,i)
+	rv_endo='{}/Patient_{}-RVEndo-Frame_1.vtk'.format(src,i)
+	rv_epi='{}/Patient_{}-RVEpi-Frame_1.vtk'.format(src,i)
+	msh='{}/Patient_{}.msh'.format(msh_src,i)
+	out='{}/Patient_{}.out.txt'.format(msh_src,i)
+	gmsh='{}/gmsh/build/gmsh'.format(Programs_path) 	#path to gmsh
+	os.system('{} -3 {} -merge {} {} biv_mesh.geo -o {} >& {}'.format(gmsh, lv_endo, rv_endo, rv_epi, msh, out))
 
-# for i in range(1,N+1):
-# 	if os.path.isfile('{}/Patient_{}_scar.vtk'.format(src,i)):	#patient exists
-# 		mergevtk(i,msh_src)
-# 		print('Generated .msh file for Patient {}.'.format(i))
+src='Surfaces/Data-{}/vtkFiles'.format(time)
+msh_src='Surfaces/Data-{}/mshFiles'.format(time)
+fem_src='FEM/Data-{}'.format(time)
+os.mkdir(msh_src)	#storing msh & msh output files here
+os.mkdir(fem_src)	#storing pts, elem & tris files here
 
-# 	#generating pts, tris & elem files from msh files
-# 	os.system('./msh2carp.out {}/Patient_{}.msh Patient_{}'.format(msh_src,i,i))
-# 	print('Generated .tris, .elem & .pts file for Patient {}.'.format(i))
+def write_files(patient_path,i):
+	shutil.copyfile('stim_coord.dat',patient_path+'/stim_coord.dat')
+	infile=open('risk_strat_1_16.sh','r').readlines()
+	outfile=open(patient_path+'/risk_strat_1_16.sh','w')
+	new_jobid='#SBATCH --job-name=Pat_{}'.format(i)
+	for line in infile:
+		if line != infile[2]:
+			outfile.write(line)
+		else:
+			outfile.write(new_jobid+'\n')	#changes jobid to current patient
+	outfile.close()
 
-# 	#moving FEM files to correct folder
-# 	os.mkdir('{}/Patient_{}'.format(fem_src,i))
-# 	for j in ['tris', 'elem', 'pts']:
-# 		os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}/Patient_{}.{}'.format(fem_src,i,i,j))
-# print('All .msh and .out.txt files are stored in Surfaces/mshFiles')
+
+for i in range(1,N+1):
+	if os.path.isfile('{}/Patient_{}_scar.vtk'.format(src,i)):	#patient exists
+		mergevtk(i,msh_src)
+		print('Generated .msh file for Patient {}.'.format(i))
+
+	#generating pts, tris & elem files from msh files
+	os.system('./msh2carp.out {}/Patient_{}.msh Patient_{}'.format(msh_src,i,i))
+	print('Generated .tris, .elem & .pts file for Patient {}.'.format(i))
+
+	#moving FEM files to correct folder
+	patient_path='{}/Patient_{}'.format(fem_src,i)
+	os.mkdir(patient_path)
+	for j in ['tris', 'elem', 'pts']:
+		os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}.{}'.format(patient_path,i,j))
+
+	#creating stim_coord.dat & rist_strat_1_16.sh in each patient folder
+	write_files(patient_path,i)
+
+print('All .msh and .out.txt files are stored in Surfaces/mshFiles')
+print('All FEM files are stored in FEM/Data-{}'.format(time))
+
