@@ -35,7 +35,7 @@ case "$vtkchoice" in
 	echo "downloading VTK in " $Programs_path
 	git clone git://vtk.org/VTK.git
 	mkdir VTK-build && cd VTK-build	#cd into build folder
-	cmake ..
+	cmake ../VTK ..
 	make -j10
 	echo "building VTK in "$PWD
 	vtk_dir=$PWD;;
