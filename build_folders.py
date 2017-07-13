@@ -5,6 +5,26 @@ Purpose of this script
 2) Need to build and compile some programs
 '''
 import os
+import sys
+
+
+def change_gmsh(path):
+	infile=open('mat2fem.py','r').readlines()
+	outfile=open('new_mat2fem.py','w')
+	for line in infile:
+		if str(line[1:5])=='gmsh':
+			outfile.write("	gmsh='{}'\n".format(path))
+		else:
+			outfile.write(line)
+	outfile.close()
+	os.remove('mat2fem.py')
+	os.rename('new_mat2fem.py','mat2fem.py')
+
+if eval(sys.argv[1]=='empty'):
+	print('gmsh installed by software.sh. Path to build is known.')
+else:
+	print('gmsh path specified by user. Changing mat2fem.py to correct gmsh path.')
+	change_gmsh(str(sys.argv[1]))
 
 def exists_folders(path):	#checking if folders exist
 	if not os.path.isdir(path):
@@ -36,7 +56,7 @@ for path in folders:
 
 #need to build in both Scar and Convertion Process
 os.chdir(root+'/'+Scar_build)
-os.system('cmake ../ -DModuleITKVtkGlue=ON')
+os.system('cmake ..')
 os.system('make')
 
 os.chdir(root+'/'+Conv_build)

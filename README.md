@@ -6,9 +6,9 @@ Clone and access this repository from a suitable location on your Abel account b
 2. ```$ cd In_Silico_Heart_Models```.
 
 ## Step 1: Software requirements ##
-* On your computer: A Windows virtual machine with the program [Segment](http://medviso.com/download2/) and [Meshalyzer](https://github.com/cardiosolv/meshalyzer) to visualize finite element meshes.
+* On your computer: A Windows virtual machine with the program [Segment](http://medviso.com/download2/), and [Meshalyzer](https://github.com/cardiosolv/meshalyzer) to visualize FEM.
 * On Abel: [vtk](http://www.vtk.org), [itk](https://itk.org) and [gmsh](http://gmsh.info). **software.sh** will install them for you if you don't have them.
-* Run **software.sh** to create and build some necessary folders and programs respectively. 
+* Run **software.sh** to create and build some necessary folders and programs: ```$sh software.sh```.
 
 
 ## Step 2: Segmentation ##
