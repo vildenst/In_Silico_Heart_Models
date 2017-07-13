@@ -35,25 +35,33 @@ pip install --user scipy
 pip install --U matplotlib --user
 
 #Installing VTK
-if [ '$1'=true ]; then
-	git clone git://vtk.org/VTK.git
-	mkdir VTK-build && cd VTK-build	#cd into build folder
+read -p "Do you want to install vtk (y/n)? " choice
+case "$choice" in
+	y|Y ) echo "installing VTK ... This might take some time"
+	echo 'downloading VTK in '$Programs_path
+	#git clone git://vtk.org/VTK.git
+	#mkdir VTK-build && cd VTK-build	#cd into build folder
 	#cmake ..
 	#make -j15
-fi
+	echo 'building VTK in '$PWD;;
+	n|N ) echo "Will not install VTK. Moving on ...";;
+	* ) echo "Invalid answer. Please type y or n";;
+esac
 
 #Installing ITK
-if [ '$2'=true ]; then
+if $2; then
+	echo 'downloading ITK in '$Programs_path
 	cd $Programs_path
 	git clone https://itk.org/ITK.git
 	cd ITK 
 	mkdir bin && cd bin
+	echo 'building ITK in '$PWD
 	#cmake ../ -DModuleItkVtkGlue=ON
 	#make -j15
 fi
 
 #Installing gmsh
-if [ '$3'=true ]; then
+if '$3'; then
 	cd $Programs_path
 fi
 
