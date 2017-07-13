@@ -17,15 +17,15 @@ cd Programs	#chaning to Programs folder to install VTK, ITK & gmsh
 Programs_path=$PWD
 
 #moving matlab toolbox to Programs
-mv root/Medical_Image_Processing_Toolbox .
-echo "Moved Medical_Image_Processing_Toolbox to " $PWD
+mv $root/Medical_Image_Processing_Toolbox .
+echo "Moved Medical_Image_Processing_Toolbox to" $PWD
 
 #installing necessary python packages
 echo "checking if numpy, scipy and matplotlib are installed ..."
 module load python2
 pip install --user numpy
 pip install --user scipy
-pip install --U matplotlib --user
+pip install -U matplotlib --user
 
 #Installing VTK
 read -p "Do you want to install VTK (y/n)? " vtkchoice
