@@ -37,14 +37,14 @@
 #Installing VTK
 read -p "Do you want to install vtk (y/n)? " choice
 case "$choice" in
-	y|Y ) echo "installing VTK ... This might take some time"
-	echo 'downloading VTK in '$Programs_path
+	y|Y|Yes|yes ) echo "installing VTK ... This might take some time"
+	echo "downloading VTK in " $Programs_path
 	#git clone git://vtk.org/VTK.git
 	#mkdir VTK-build && cd VTK-build	#cd into build folder
 	#cmake ..
 	#make -j15
-	echo 'building VTK in '$PWD;;
-	n|N ) echo "Will not install VTK. Moving on ...";;
+	echo "building VTK in "$PWD;;
+	n|N|No|no ) echo "Will not install VTK. Moving on ...";;
 	* ) echo "Invalid answer. Please type y or n";;
 esac
 
