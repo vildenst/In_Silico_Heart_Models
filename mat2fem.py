@@ -3,28 +3,22 @@ import shutil
 
 root=os.getcwd()	#path to In_Silico_Heart_Models
 
-#PART 1: MATLAB SLICE ALIGNMENT
+################################
+#PART 1: MATLAB SLICE ALIGNMENT#
+################################
 
-source ='{}/seg/'.format(root)
-files=os.listdir(source)
-N=len(files)	#number of .mat files to be processed
-nr_errors=0
-err_list=[]
-dest='{}/Matlab_Process/Data/Seg/'.format(root)
-for f in files:
-	shutil.copy(source+f,dest+f)	#all .mat files moved to dest
-
-os.chdir('Matlab_Process')
-
+#running the matlab script alignAll.m
 def run_matlab(nr_errors,err_list):
-	os.system('sh run_matlab.sh')	#running the matlab script
+	os.system('sh run_matlab.sh')	
 	scar_folder ='{}/Matlab_Process/Data/ScarImages/MetaImages/'.format(root)
 	scar_files=os.listdir(scar_folder)
-	N2=len(scar_files)
+	N2=len(scar_files) #files produces from matlab. 
 	if (N-nr_errors)*2 > N2:	#not all .mat files are processed
 		remove_error(N2,nr_errors,err_list)
 
-def remove_error(N2,nr_errors,err_list):
+#if an error occured in matlab, 
+#this function removes the error file and restarts
+def remove_error(N2,nr_errors,err_list): 
 		error=(N2+nr_errors*2)/2+1
 		err_path='{}Patient_{}.mat'.format(dest,error)
 		os.remove(err_path)		
@@ -32,11 +26,25 @@ def remove_error(N2,nr_errors,err_list):
 		err_list.append(error)
 		run_matlab(nr_errors,err_list)
 
+#if the error file managed to produce some text files first,
+#this function will delete them.
 def remove_error_files(fname):
 	rm_path='{}/Data/Texts/'.format(os.getcwd())
 	for i in ['LVEndo','LVEpi','RVEndo','RVEpi']:
 		if os.path.isfile('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i)):
 			os.remove('{}{}-{}-Frame_1.txt'.format(rm_path,fname,i))
+
+
+source ='{}/seg/'.format(root) #.mat files source path
+files=os.listdir(source)
+N=len(files)	#number of .mat files to be processed
+nr_errors=0
+err_list=[]
+dest='{}/Matlab_Process/Data/Seg/'.format(root) #.mat files dest path
+for f in files:
+	shutil.copy(source+f,dest+f)	#move all .mat files to dest
+
+os.chdir('Matlab_Process')
 
 run_matlab(nr_errors,err_list)
 if err_list:	#errors occured

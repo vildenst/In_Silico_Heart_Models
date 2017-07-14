@@ -1,19 +1,20 @@
-# !/bin/bash 
+#!/bin/bash 
 
-#loading cmake for compiling
+#loading new modules
 module purge
 module load cmake
 module load gcc
 
-root=$PWD 	#saving path to In_Silico_Heart_Models
+root=$PWD 	#path to In_Silico_Heart_Models
 cd ~		#returning to login folder to install Programs folder
 
-#creates Program folder if it doesn't exist
+#creates Programs folder if it doesn't exist
 if [ ! -d "Programs" ]; then
 	mkdir Programs
 fi 
 
-cd Programs	#chaning to Programs folder to install VTK, ITK & gmsh
+#changing to Programs folder to install VTK, ITK & gmsh
+cd Programs	
 Programs_path=$PWD
 
 #moving matlab toolbox to Programs
@@ -35,15 +36,15 @@ case "$vtkchoice" in
 	echo "downloading VTK in " $Programs_path
 	git clone git://vtk.org/VTK.git
 	mkdir VTK-build && cd VTK-build	#cd into build folder
-	cmake ../VTK ..
-	make -j10
 	echo "building VTK in "$PWD
-	vtk_dir=$PWD;;
+	cmake ../VTK 	#running cmake with path to VTK src folder
+	make -j10
+	vtk_dir=$PWD;;	#path to VTK build
 	n|N|No|no ) 
 	echo "Will not install VTK."
-	read -p "Please specify the path to your VTK build: " vtk_dir;;
+	read -p "Please specify the path to your VTK build: " vtk_dir;;	#path to VTK build
 	* ) 
-	echo "Invalid answer. Please type y or n"
+	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
 esac
 
@@ -56,16 +57,27 @@ case "$itkchoice" in
 	cd $Programs_path
 	git clone https://itk.org/ITK.git
 	cd ITK 
-	mkdir bin && cd bin
-	cmake ../ -DModuleITKVtkGlue=ON
-	make -j10
+	mkdir bin && cd bin 	#cd into bin folder 
 	echo 'building ITK in '$PWD
-	itk_dir=$PWD;;
+	echo "You will now be directed into the cmake interface to enable ITKVtkGlue."
+	echo "Please do the following after the interface opens:"
+	echo "1) Press c to configure."
+	echo "2) Press t to enable advanced options. Then use the arrow keys to scroll"
+	echo "down to Module_ITKVtkGlue, and press enter. It should now say ON instead of OFF."
+	echo "3) Press c to configure, two times in a row."
+	echo "4) Press g to generate."
+	read -p "Press enter if understood" ccmake
+	case "$ccmake" in
+		* ) 
+		ccmake .. 	#need to turn on Glue (connects VTK & ITK)
+		make -j10
+		itk_dir=$PWD;;	#path to ITK build
+	esac;;
 	n|N|No|no ) 
 	echo "Will not install ITK."
-	read -p "Please specify the path to your ITK build: " itk_dir;;
+	read -p "Please specify the path to your ITK build: " itk_dir;;	#path to ITK build
 	* ) 
-	echo "Invalid answer. Please type y or n"
+	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
 esac
 
@@ -74,26 +86,35 @@ read -p "Do you want to install gmsh (y/n)? " gmshchoice
 case "$gmshchoice" in
 	y|Y|Yes|yes ) 
 	echo "installing gmsh ... This might take some time"
-	echo "downloading gmsh in " $Programs_path;;
+	echo "downloading gmsh in "$Programs_path
 	cd $Programs_path
-	mv root/gmsh .	#moving gmsh folder into Programs
-	mkdir gmsh/build && cd gmsh/build
+	mv $root/gmsh .	#moving gmsh folder into Programs
+	mkdir gmsh/build && cd gmsh/build 	#cd into build folder
 	echo "building gmsh in "$PWD
-	module purge
-	module load openmpi.intel/1.8.5
-	module load cmake
-	cmake ../ -DENABLE_FLTK=0 ..
-	make -j10
-	gmsh_path='empty'
+	module purge						#clean up old modules listed
+	module load openmpi.intel/1.8.5 	#need to load new module
+	module load cmake 					#reload cmake
+	cmake ../ -DENABLE_FLTK=0 .. 		#building gmsh without GUI (need FLTK for that)
+	make -j10		
+	gmsh_path='empty';; 	#gmsh path already spesified in mat2fem.py, nothing to change
 	n|N|No|no ) 
 	echo "Will not install gmsh. "
-	read -p "Please specify the path to your gmsh build: " gmsh_path;;
+	read -p "Please specify the path to your gmsh build: " gmsh_path;; 	#need users gmsh path
 	* ) 
-	echo "Invalid answer. Please type y or n"
+	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
 esac
 
-export VTK_DIR=$vtk_dir
+#setting path to VTK & ITK build, 
+#necessary such that Scar_Process and Convertion_Process can build properly
+export VTK_DIR=$vtk_dir 	
 export ITK_DIR=$itk_dir
 
+#build_folders.py creates empty folders needed for later, as well as 
+#building and compiling some programs. 
+#Takes gmsh_path as arg, needed if user has build gmsh somewhere else
+cd $root
+module purge
+module load cmake
+module load gcc
 python build_folders.py $gmsh_path

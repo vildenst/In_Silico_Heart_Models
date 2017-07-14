@@ -8,6 +8,7 @@ import os
 import sys
 
 
+#function that re-writes gmsh path if user already had gmsh installed
 def change_gmsh(path):
 	infile=open('mat2fem.py','r').readlines()
 	outfile=open('new_mat2fem.py','w')
@@ -20,17 +21,23 @@ def change_gmsh(path):
 	os.remove('mat2fem.py')
 	os.rename('new_mat2fem.py','mat2fem.py')
 
-if eval(sys.argv[1]=='empty'):
+#function for checking if a folders exists
+def exists_folders(path):	
+	if not os.path.isdir(path):
+		os.makedirs(path)
+
+#checking if user already had gmsh installed
+if str(sys.argv[1])=='empty':
 	print('gmsh installed by software.sh. Path to build is known.')
 else:
 	print('gmsh path specified by user. Changing mat2fem.py to correct gmsh path.')
 	change_gmsh(str(sys.argv[1]))
 
-def exists_folders(path):	#checking if folders exist
-	if not os.path.isdir(path):
-		os.makedirs(path)
+
 
 root=os.getcwd() #In_Silico_Heart_Models
+
+#Empty folders that need to get created
 seg='seg'
 Surfaces='Surfaces'
 FEM='FEM'
@@ -39,11 +46,12 @@ Conv_Data='Convertion_Process/Data/'
 Matlab_Data='Matlab_Process/Data'
 Matlab_align=Matlab_Data+'/Aligned'
 Matlab_scar=Matlab_Data+'/ScarImages'
+Scar_meta=Matlab_scar+'/MetaImages'
 Matlab_seg=Matlab_Data+'/Seg'
 Matlab_text=Matlab_Data+'/Texts'
 Scar_data='Scar_Process/Data'
 Scar_build='Scar_Process/ScarProcessing/build'
-Scar_meta=Scar_build+'/MetaImages'
+
 
 folders=[seg, Surfaces, Conv_build, Conv_Data,
 Matlab_Data, Matlab_align, Matlab_scar,Matlab_seg, 
@@ -52,18 +60,18 @@ Matlab_text, Scar_data, Scar_build, FEM, Scar_meta]
 #creates the folders above
 for path in folders:
 	exists_folders(root+'/'+path)
-	#os.chdir(root)
 
 #need to build in both Scar and Convertion Process
-os.chdir(root+'/'+Scar_build)
-os.system('cmake ..')
-os.system('make')
-
 os.chdir(root+'/'+Conv_build)
 os.system('cmake ..')
 os.system('make')
 
+os.chdir(root+'/'+Scar_build)
+os.system('cmake ..')
+os.system('make')
 
-#need to compile C program from .msh to .elem and .pts
+
+
+#need to compile C program 
 os.chdir(root)
 os.system('gcc msh2carp.c -o msh2carp.out')
