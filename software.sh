@@ -18,13 +18,6 @@ Programs_path=$PWD
 mv $root/Medical_Image_Processing_Toolbox .
 echo "Moved Medical_Image_Processing_Toolbox to" $PWD
 
-#installing necessary python packages
-echo "checking if numpy, scipy and matplotlib are installed ..."
-pip install --user numpy
-pip install --user scipy
-pip install -U matplotlib --user
-
-
 #loading new modules
 module purge
 module load cmake
@@ -127,9 +120,15 @@ make
 cd $root
 gcc msh2carp.c -o msh2carp.out
 
+
+#installing necessary python packages
+echo "checking if numpy, scipy and matplotlib are installed ..."
+module purge
+module load python2
+pip install --user numpy
+pip install --user scipy
+pip install -U matplotlib --user
 #build_folders.py creates empty folders needed for later, as well as 
 #re-writing some files if paths to Software needs correction
 #Takes gmsh_path as arg, needed if user has build gmsh somewhere else
-module purge
-module load python2
 python build_folders.py $gmsh_path
