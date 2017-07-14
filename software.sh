@@ -34,7 +34,7 @@ case "$vtkchoice" in
 	y|Y|Yes|yes ) 
 	echo "installing VTK ... This will take some time"
 	echo "downloading VTK in " $Programs_path
-	git clone git://vtk.org/VTK.git
+	mv $root/VTK .
 	mkdir VTK-build && cd VTK-build	#cd into build folder
 	echo "building VTK in "$PWD
 	cmake ../VTK 	#running cmake with path to VTK src folder
@@ -55,7 +55,7 @@ case "$itkchoice" in
 	echo "installing ITK ... This will take some time"
 	echo 'downloading ITK in '$Programs_path
 	cd $Programs_path
-	git clone https://itk.org/ITK.git
+	mv $root/ITK .
 	cd ITK 
 	mkdir bin && cd bin 	#cd into bin folder 
 	echo 'building ITK in '$PWD
