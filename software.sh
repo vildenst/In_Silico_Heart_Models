@@ -34,7 +34,7 @@ case "$vtkchoice" in
 	y|Y|Yes|yes ) 
 	echo "installing VTK ... This will take some time"
 	echo "downloading VTK in " $Programs_path
-	git clone git://vtk.org/VTK.git
+	git clone https://gitlab.kitware.com/vtk/vtk.git
 	mkdir VTK-build && cd VTK-build	#cd into build folder
 	echo "building VTK in "$PWD
 	cmake ../VTK 	#running cmake with path to VTK src folder
