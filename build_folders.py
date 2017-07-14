@@ -2,7 +2,7 @@
 '''
 Purpose of this script
 1) Git doesn't allow empty folders. Need to create them.
-2) Need to build and compile some programs
+2) Need to re-write some files
 '''
 import os
 import sys
@@ -41,7 +41,6 @@ root=os.getcwd() #In_Silico_Heart_Models
 seg='seg'
 Surfaces='Surfaces'
 FEM='FEM'
-Conv_build='Convertion_Process/ConvertFile/build'
 Conv_Data='Convertion_Process/Data/'
 Matlab_Data='Matlab_Process/Data'
 Matlab_align=Matlab_Data+'/Aligned'
@@ -50,28 +49,12 @@ Scar_meta=Matlab_scar+'/MetaImages'
 Matlab_seg=Matlab_Data+'/Seg'
 Matlab_text=Matlab_Data+'/Texts'
 Scar_data='Scar_Process/Data'
-Scar_build='Scar_Process/ScarProcessing/build'
 
 
-folders=[seg, Surfaces, Conv_build, Conv_Data,
-Matlab_Data, Matlab_align, Matlab_scar,Matlab_seg, 
-Matlab_text, Scar_data, Scar_build, FEM, Scar_meta]
+folders=[seg, Surfaces, Conv_Data, Matlab_Data, 
+Matlab_align, Matlab_scar,Matlab_seg, 
+Matlab_text, Scar_data, FEM, Scar_meta]
 
 #creates the folders above
 for path in folders:
 	exists_folders(root+'/'+path)
-
-#need to build in both Scar and Convertion Process
-os.chdir(root+'/'+Conv_build)
-os.system('cmake ..')
-os.system('make')
-
-os.chdir(root+'/'+Scar_build)
-os.system('cmake ..')
-os.system('make')
-
-
-
-#need to compile C program 
-os.chdir(root)
-os.system('gcc msh2carp.c -o msh2carp.out')

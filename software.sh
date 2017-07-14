@@ -20,7 +20,6 @@ echo "Moved Medical_Image_Processing_Toolbox to" $PWD
 
 #installing necessary python packages
 echo "checking if numpy, scipy and matplotlib are installed ..."
-module load python2
 pip install --user numpy
 pip install --user scipy
 pip install -U matplotlib --user
@@ -51,6 +50,8 @@ case "$vtkchoice" in
 	exit 1;;
 esac
 
+export VTK_DIR=$vtk_dir 	#setting path to VTK build
+
 #Installing ITK
 read -p "Do you want to install ITK (y/n)? " itkchoice
 case "$itkchoice" in
@@ -69,7 +70,7 @@ case "$itkchoice" in
 	echo "down to Module_ITKVtkGlue, and press enter. It should now say ON instead of OFF."
 	echo "3) Press c to configure, two times in a row."
 	echo "4) Press g to generate."
-	read -p "Press enter if understood" ccmake
+	read -p "Press enter if understood: " ccmake
 	case "$ccmake" in
 		* ) 
 		ccmake .. 	#need to turn on Glue (connects VTK & ITK)
@@ -83,6 +84,8 @@ case "$itkchoice" in
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
 esac
+
+export ITK_DIR=$itk_dir 	#setting path to ITK build
 
 #Installing gmsh
 read -p "Do you want to install gmsh (y/n)? " gmshchoice
@@ -108,16 +111,25 @@ case "$gmshchoice" in
 	exit 1;;
 esac
 
-#setting path to VTK & ITK build, 
-#necessary such that Scar_Process and Convertion_Process can build properly
-export VTK_DIR=$vtk_dir 	
-export ITK_DIR=$itk_dir
+#building Convertion_Process
+mkdir $root/Convertion_Process/ConvertFile/build
+cd $root/Convertion_Process/ConvertFile/build
+cmake ..
+make
+
+#building Scar_Process
+mkdir $root/Scar_Process/ScarProcessing/build
+cd $root/Scar_Process/ScarProcessing/build
+cmake ..
+make
+ 	
+#need to compile C program
+cd $root
+gcc msh2carp.c -o msh2carp.out
 
 #build_folders.py creates empty folders needed for later, as well as 
-#building and compiling some programs. 
+#re-writing some files if paths to Software needs correction
 #Takes gmsh_path as arg, needed if user has build gmsh somewhere else
-cd $root
 module purge
-module load cmake
-module load gcc
+module load python2
 python build_folders.py $gmsh_path
