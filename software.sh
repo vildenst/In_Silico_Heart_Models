@@ -37,7 +37,7 @@ case "$vtkchoice" in
 	git clone https://gitlab.kitware.com/vtk/vtk.git
 	mkdir VTK-build && cd VTK-build	#cd into build folder
 	echo "building VTK in "$PWD
-	cmake ../VTK 	#running cmake with path to VTK src folder
+	cmake ../vtk 	#running cmake with path to VTK src folder
 	make -j10
 	vtk_dir=$PWD;;	#path to VTK build
 	n|N|No|no ) 
