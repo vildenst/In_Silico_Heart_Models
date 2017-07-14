@@ -80,6 +80,24 @@ esac
 
 export ITK_DIR=$itk_dir 	#setting path to ITK build
 
+#building Convertion_Process
+mkdir $root/Convertion_Process/ConvertFile/build
+cd $root/Convertion_Process/ConvertFile/build
+echo "Building ConvertFile in "$PWD
+cmake ..
+make
+
+#building Scar_Process
+mkdir $root/Scar_Process/ScarProcessing/build
+cd $root/Scar_Process/ScarProcessing/build
+echo "Building ScarProcessing in "$PWD
+cmake ..
+make
+ 	
+#need to compile C program
+cd $root
+gcc msh2carp.c -o msh2carp.out
+
 #Installing gmsh
 read -p "Do you want to install gmsh (y/n)? " gmshchoice
 case "$gmshchoice" in
@@ -103,23 +121,6 @@ case "$gmshchoice" in
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
 esac
-
-#building Convertion_Process
-mkdir $root/Convertion_Process/ConvertFile/build
-cd $root/Convertion_Process/ConvertFile/build
-cmake ..
-make
-
-#building Scar_Process
-mkdir $root/Scar_Process/ScarProcessing/build
-cd $root/Scar_Process/ScarProcessing/build
-cmake ..
-make
- 	
-#need to compile C program
-cd $root
-gcc msh2carp.c -o msh2carp.out
-
 
 #installing necessary python packages
 echo "checking if numpy, scipy and matplotlib are installed ..."
