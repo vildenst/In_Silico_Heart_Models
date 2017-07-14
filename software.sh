@@ -1,9 +1,6 @@
 #!/bin/bash 
 
-#loading new modules
 module purge
-module load cmake
-module load gcc
 
 root=$PWD 	#path to In_Silico_Heart_Models
 cd ~		#returning to login folder to install Programs folder
@@ -27,6 +24,12 @@ module load python2
 pip install --user numpy
 pip install --user scipy
 pip install -U matplotlib --user
+
+
+#loading new modules
+module purge
+module load cmake
+module load gcc
 
 #Installing VTK
 read -p "Do you want to install VTK (y/n)? " vtkchoice
