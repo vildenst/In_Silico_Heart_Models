@@ -132,4 +132,5 @@ pip install -U matplotlib --user
 #build_folders.py creates empty folders needed for later, as well as 
 #re-writing some files if paths to Software needs correction
 #Takes gmsh_path as arg, needed if user has build gmsh somewhere else
+cd $root
 python build_folders.py $gmsh_path
