@@ -123,7 +123,7 @@ case "$gmshchoice" in
 esac
 
 #installing necessary python packages
-echo "checking if numpy, scipy and matplotlib are installed ..."
+echo "Checking if numpy, scipy and matplotlib are installed ..."
 module purge
 module load python2
 pip install --user numpy
@@ -151,6 +151,6 @@ declare -a folders=($seg $Surfaces $Conv_Data $Matlab_Data
 
 for f in "${folders[@]}"
 do
-	mkdir(f)
+	mkdir f
 done
 
