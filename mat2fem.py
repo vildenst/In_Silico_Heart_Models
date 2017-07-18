@@ -256,11 +256,11 @@ for i in range(1,N+1):
 	#	print('Generated .msh file for Patient {}.'.format(i))
 
 	#generating pts, tris & elem files from msh files
-	write_fem('{}/{}/Patient_{}.msh'.format(root,msh_src,i),'Patient_{}'.format(i))
+	#write_fem('{}/{}/Patient_{}.msh'.format(root,msh_src,i),'Patient_{}'.format(i))
 	print('Generated .tris, .elem & .pts file for Patient {}.'.format(i))
 
 	#moving FEM files to correct folder
-	patient_path='{}/{}/Patient_{}'.format(root,fem_src,i)
+	#patient_path='{}/{}/Patient_{}'.format(root,fem_src,i)
 	os.mkdir(patient_path)
 	for j in ['tris', 'elem', 'pts']:
 		os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}.{}'.format(patient_path,i,j))
