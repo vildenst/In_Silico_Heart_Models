@@ -223,7 +223,7 @@ os.mkdir(root+'/'+msh_src)	#storing msh & msh output files here
 os.mkdir(root+'/'+fem_src)	#storing pts, elem & tris files here
 
 for i in range(1,N+1):
-	if os.path.isfile('{}/{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
+	if os.path.isfile('{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
 		mergevtk(i,'{}/{}'.format(root,msh_src),vtk_src)	#generation of .msh files
 		print('Generated .msh file for Patient {}.'.format(i))
 
