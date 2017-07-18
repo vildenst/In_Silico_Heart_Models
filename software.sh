@@ -93,10 +93,6 @@ cd $root/Scar_Process/ScarProcessing/build
 echo "Building ScarProcessing in "$PWD
 cmake ..
 make
- 	
-#need to compile C program
-cd $root
-gcc msh2carp.c -o msh2carp.out
 
 #Installing gmsh
 read -p "Do you want to install gmsh (y/n)? " gmshchoice
@@ -113,10 +109,14 @@ case "$gmshchoice" in
 	module load cmake 					#reload cmake
 	cmake ../ -DENABLE_FLTK=0 .. 		#building gmsh without GUI (need FLTK for that)
 	make -j10		
-	gmsh_path='empty';; 	#gmsh path already spesified in mat2fem.py, nothing to change
+	cd $root;;
 	n|N|No|no ) 
 	echo "Will not install gmsh. "
-	read -p "Please specify the path to your gmsh build: " gmsh_path;; 	#need users gmsh path
+	read -p "Please specify the path to your gmsh executable: " gmsh_path 	#need users gmsh path
+	cd $root
+	old_gmsh="'{}/gmsh/build/gmsh'.format(Programs_path)"
+	sed -i -e "s|$old_gmsh|$gmsh_path|g" mat2fem.py
+	echo 'Have updated gmsh path in mat2fem.py to '$gmsh_path;;
 	* ) 
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
 	exit 1;;
@@ -129,8 +129,28 @@ module load python2
 pip install --user numpy
 pip install --user scipy
 pip install -U matplotlib --user
-#build_folders.py creates empty folders needed for later, as well as 
-#re-writing some files if paths to Software needs correction
-#Takes gmsh_path as arg, needed if user has build gmsh somewhere else
-cd $root
-python build_folders.py $gmsh_path
+
+
+#need to create some empty folders
+seg='seg'
+Surfaces='Surfaces'
+FEM='FEM'
+Conv_Data='Convertion_Process/Data/'
+Matlab_Data='Matlab_Process/Data'
+Matlab_align=$Matlab_Data'/Aligned'
+Matlab_scar=$Matlab_Data'/ScarImages'
+Scar_meta=$Matlab_scar'/MetaImages'
+Matlab_seg=$Matlab_Data'/Seg'
+Matlab_text=$Matlab_Data'/Texts'
+Scar_data='Scar_Process/Data'
+
+
+declare -a folders=($seg $Surfaces $Conv_Data $Matlab_Data 
+				$Matlab_align $Matlab_scar $Matlab_seg 
+				$Matlab_text $Scar_data $FEM $Scar_meta)
+
+for f in "${folders[@]}"
+do
+	mkdir(f)
+done
+
