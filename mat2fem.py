@@ -219,8 +219,8 @@ def write_files(patient_path,i):
 src='Surfaces/Data-{}/vtkFiles'.format(time) #source .vtk files
 msh_src='Surfaces/Data-{}/mshFiles'.format(time) 
 fem_src='FEM/Data-{}'.format(time)
-os.mkdir(msh_src)	#storing msh & msh output files here
-os.mkdir(fem_src)	#storing pts, elem & tris files here
+os.mkdir(root+'/'+msh_src)	#storing msh & msh output files here
+os.mkdir(root+'/'+fem_src)	#storing pts, elem & tris files here
 
 for i in range(1,N+1):
 	if os.path.isfile('{}/Patient_{}_scar.vtk'.format(src,i)):	#patient exists
