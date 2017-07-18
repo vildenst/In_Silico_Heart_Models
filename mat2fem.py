@@ -260,7 +260,7 @@ for i in range(1,N+1):
 	print('Generated .tris, .elem & .pts file for Patient {}.'.format(i))
 
 	#moving FEM files to correct folder
-	#patient_path='{}/{}/Patient_{}'.format(root,fem_src,i)
+	patient_path='{}/{}/Patient_{}'.format(root,fem_src,i)
 	os.mkdir(patient_path)
 	for j in ['tris', 'elem', 'pts']:
 		os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}.{}'.format(patient_path,i,j))
