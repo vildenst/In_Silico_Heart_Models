@@ -8,6 +8,7 @@ import shutil
 root=os.getcwd()	#path to In_Silico_Heart_Models
 
 time='18.07-17.44'
+N=1
 # """
 # PART 1: MATLAB SLICE ALIGNMENT
 # """
