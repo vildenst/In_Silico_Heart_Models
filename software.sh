@@ -151,6 +151,6 @@ declare -a folders=($seg $Surfaces $Conv_Data $Matlab_Data
 
 for f in "${folders[@]}"
 do
-	mkdir f
+	mkdir $f
 done
 
