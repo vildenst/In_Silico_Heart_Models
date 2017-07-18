@@ -136,10 +136,10 @@ PART 3: GENERATION OF FEM FILES
 Programs_path=os.getenv('HOME')+'/Programs'	#path to Programs
 
 #Generating .msh files from .vtk files
-def mergevtk(i,msh_src):	
-	lv_endo='{}/Patient_{}-LVEndo-Frame_1.vtk'.format(src,i)
-	rv_endo='{}/Patient_{}-RVEndo-Frame_1.vtk'.format(src,i)
-	rv_epi='{}/Patient_{}-RVEpi-Frame_1.vtk'.format(src,i)
+def mergevtk(i,msh_src,vtk_src):	
+	lv_endo='{}/Patient_{}-LVEndo-Frame_1.vtk'.format(vtk_src,i)
+	rv_endo='{}/Patient_{}-RVEndo-Frame_1.vtk'.format(vtk_src,i)
+	rv_epi='{}/Patient_{}-RVEpi-Frame_1.vtk'.format(vtk_src,i)
 	msh='{}/Patient_{}.msh'.format(msh_src,i)
 	out='{}/Patient_{}.out.txt'.format(msh_src,i)
 	biv_mesh='{}/scripts/biv_mesh.geo'.format(root)
@@ -216,15 +216,15 @@ def write_files(patient_path,i):
 			outfile.write(new_jobid+'\n')	#changes jobid to current patient
 	outfile.close()
 
-src='Surfaces/Data-{}/vtkFiles'.format(time) #source .vtk files
+vtk_src='{}/Surfaces/Data-{}/vtkFiles'.format(root,time) #source .vtk files
 msh_src='Surfaces/Data-{}/mshFiles'.format(time) 
 fem_src='FEM/Data-{}'.format(time)
 os.mkdir(root+'/'+msh_src)	#storing msh & msh output files here
 os.mkdir(root+'/'+fem_src)	#storing pts, elem & tris files here
 
 for i in range(1,N+1):
-	if os.path.isfile('{}/{}/Patient_{}_scar.vtk'.format(root,src,i)):	#patient exists
-		mergevtk(i,'{}/{}'.format(root,msh_src))	#generation of .msh files
+	if os.path.isfile('{}/{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
+		mergevtk(i,'{}/{}'.format(root,msh_src),vtk_src)	#generation of .msh files
 		print('Generated .msh file for Patient {}.'.format(i))
 
 	#generating pts, tris & elem files from msh files
