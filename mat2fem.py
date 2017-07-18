@@ -148,37 +148,37 @@ def mergevtk(i,msh_src,vtk_src):
 		gmsh, lv_endo, rv_endo, rv_epi, biv_mesh, msh, out))
 
 #help function to write_fem for writing .pts files
-def write_pts(start_pts, end_pts, words, outfile_pts):
-	if words[0]=='$Nodes':
-		start_pts=True
-		return
-	if words[0]=='$EndNodes':
-		end_pts=True
-	if start_pts==True and end_pts==False:
-		if len(words)==1:	#first line to write
-			outfile_pts.write('{}\n'.format(words[0]))
-		else:
-			outfile_pts.write('{} {} {}\n'.format(words[1],words[2],words[3]))
+# def write_pts(start_pts, end_pts, words, outfile_pts):
+# 	if words[0]=='$Nodes':
+# 		start_pts=True
+# 		return
+# 	if words[0]=='$EndNodes':
+# 		end_pts=True
+# 	if start_pts==True and end_pts==False:
+# 		if len(words)==1:	#first line to write
+# 			outfile_pts.write('{}\n'.format(words[0]))
+# 		else:
+# 			outfile_pts.write('{} {} {}\n'.format(words[1],words[2],words[3]))
 
 #help function to write_fem for writing .elem and .tris files
-def write_elem(start_elem,end_elem,words,outfile_elem,outfile_tris):
-	if words[0]=='$Elements':
-		start_elem=True
-		return 	#jumping to next line
-	if words[0]=='$EndElements':
-		end_elem=True
-	if start_elem==True and end_elem==False:
-		if len(words)==1:	#first line to write
-			outfile_elem.write('{}\n'.format(words[0]))	#writing up nr of elements
-		elif len(words)>7:
-			i=int(words[5])-1
-			j=int(words[6])-1
-			k=int(words[7])-1
-			if words[1]=='2':
-				outfile_tris.write('{} {} {} 1\n'.format(i,j,k))
-			elif words[1]=='4':
-				l=int(words[8])-1
-				outfile_elem.write('Tt {} {} {} {} 1\n'.format(i,j,k,l))
+# def write_elem(start_elem,end_elem,words,outfile_elem,outfile_tris):
+# 	if words[0]=='$Elements':
+# 		start_elem=True
+# 		return 	#jumping to next line
+# 	if words[0]=='$EndElements':
+# 		end_elem=True
+# 	if start_elem==True and end_elem==False:
+# 		if len(words)==1:	#first line to write
+# 			outfile_elem.write('{}\n'.format(words[0]))	#writing up nr of elements
+# 		elif len(words)>7:
+# 			i=int(words[5])-1
+# 			j=int(words[6])-1
+# 			k=int(words[7])-1
+# 			if words[1]=='2':
+# 				outfile_tris.write('{} {} {} 1\n'.format(i,j,k))
+# 			elif words[1]=='4':
+# 				l=int(words[8])-1
+# 				outfile_elem.write('Tt {} {} {} {} 1\n'.format(i,j,k,l))
 
 #function for generating pts, elem and tris files from msh files
 def write_fem(input_file,outputname):
@@ -193,9 +193,36 @@ def write_fem(input_file,outputname):
 	for line in infile:
 		words=line.split()
 		#pts part
-		write_pts(start_pts,end_pts,words,outfile_pts)
+		#write_pts(start_pts,end_pts,words,outfile_pts)
+		if words[0]=='$Nodes':
+			start_pts=True
+			continue
+		if words[0]=='$EndNodes':
+			end_pts=True
+		if start_pts==True and end_pts==False:
+			if len(words)==1:	#first line to write
+				outfile_pts.write('{}\n'.format(words[0]))
+			else:
+				outfile_pts.write('{} {} {}\n'.format(words[1],words[2],words[3]))
 		#elem and tris part
-		write_elem(start_elem,end_elem,words,outfile_elem,outfile_tris)
+		#write_elem(start_elem,end_elem,words,outfile_elem,outfile_tris)
+		if words[0]=='$Elements':
+			start_elem=True
+			continue 	#jumping to next line
+		if words[0]=='$EndElements':
+			end_elem=True
+		if start_elem==True and end_elem==False:
+			if len(words)==1:	#first line to write
+				outfile_elem.write('{}\n'.format(words[0]))	#writing up nr of elements
+			elif len(words)>7:
+				i=int(words[5])-1
+				j=int(words[6])-1
+				k=int(words[7])-1
+				if words[1]=='2':
+					outfile_tris.write('{} {} {} 1\n'.format(i,j,k))
+				elif words[1]=='4':
+					l=int(words[8])-1
+					outfile_elem.write('Tt {} {} {} {} 1\n'.format(i,j,k,l))
 	infile.close()
 	outfile_pts.close()
 	outfile_elem.close()
@@ -223,8 +250,8 @@ os.mkdir(root+'/'+msh_src)	#storing msh & msh output files here
 os.mkdir(root+'/'+fem_src)	#storing pts, elem & tris files here
 
 for i in range(1,N+1):
-	if os.path.isfile('{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
-		mergevtk(i,'{}/{}'.format(root,msh_src),vtk_src)	#generation of .msh files
+	#if os.path.isfile('{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
+	#	mergevtk(i,'{}/{}'.format(root,msh_src),vtk_src)	#generation of .msh files
 		print('Generated .msh file for Patient {}.'.format(i))
 
 	#generating pts, tris & elem files from msh files
