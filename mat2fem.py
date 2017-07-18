@@ -252,7 +252,7 @@ fem_src='FEM/Data-{}'.format(time)
 for i in range(1,N+1):
 	#if os.path.isfile('{}/Patient_{}_scar.vtk'.format(vtk_src,i)):	#patient exists
 	#	mergevtk(i,'{}/{}'.format(root,msh_src),vtk_src)	#generation of .msh files
-		print('Generated .msh file for Patient {}.'.format(i))
+	#	print('Generated .msh file for Patient {}.'.format(i))
 
 	#generating pts, tris & elem files from msh files
 	write_fem('{}/{}/Patient_{}.msh'.format(root,msh_src,i),'Patient_{}'.format(i))
