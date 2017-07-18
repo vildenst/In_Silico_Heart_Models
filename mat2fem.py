@@ -228,7 +228,7 @@ for i in range(1,N+1):
 		print('Generated .msh file for Patient {}.'.format(i))
 
 	#generating pts, tris & elem files from msh files
-	write_fem('{}/Patient_{}.msh'.format(msh_src,i),'Patient_'+i)
+	write_fem('{}/Patient_{}.msh'.format(msh_src,i),'Patient_{}'.format(i))
 	print('Generated .tris, .elem & .pts file for Patient {}.'.format(i))
 
 	#moving FEM files to correct folder
