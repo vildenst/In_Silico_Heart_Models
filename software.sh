@@ -1,17 +1,18 @@
 #!/bin/bash 
-
-module purge
+######################################
+#Written by Vilde N. Strom, July 2017#
+#	Simula Research Laboratory		 #
+######################################
 
 root=$PWD 	#path to In_Silico_Heart_Models
-cd ~		#returning to login folder to install Programs folder
 
 #creates Programs folder if it doesn't exist
-if [ ! -d "Programs" ]; then
-	mkdir Programs
+if [ ! -d "~/Programs" ]; then
+	mkdir ~/Programs
 fi 
 
 #changing to Programs folder to install VTK, ITK & gmsh
-cd Programs	
+cd ~/Programs	
 Programs_path=$PWD
 
 #moving matlab toolbox to Programs
@@ -27,16 +28,17 @@ module load gcc
 read -p "Do you want to install VTK (y/n)? " vtkchoice
 case "$vtkchoice" in
 	y|Y|Yes|yes ) 
-	echo "installing VTK ... This will take some time"
-	echo "downloading VTK in " $Programs_path
+	echo "Installing VTK... This will take some time"
+	echo "Downloading VTK in " $Programs_path
 	mv $root/VTK .
 	mkdir VTK-build && cd VTK-build	#cd into build folder
 	echo "building VTK in "$PWD
 	cmake ../VTK 	#running cmake with path to VTK src folder
-	make -j10
+	make -j4
 	vtk_dir=$PWD;;	#path to VTK build
 	n|N|No|no ) 
-	echo "Will not install VTK."
+	echo "Will not install VTK. Removing VTK folder ..."
+	rm -rf $root/VTK
 	read -p "Please specify the path to your VTK build: " vtk_dir;;	#path to VTK build
 	* ) 
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
@@ -51,11 +53,9 @@ case "$itkchoice" in
 	y|Y|Yes|yes ) 
 	echo "installing ITK ... This will take some time"
 	echo 'downloading ITK in '$Programs_path
-	cd $Programs_path
-	mv $root/ITK .
-	cd ITK 
+	mv $root/ITK . && cd $Programs_path/ITK
 	mkdir bin && cd bin 	#cd into bin folder 
-	echo 'building ITK in '$PWD
+	echo 'Building ITK in '$PWD
 	echo "You will now be directed into the cmake interface to enable ITKVtkGlue."
 	echo "Please do the following after the interface opens:"
 	echo "1) Press c to configure."
@@ -67,11 +67,12 @@ case "$itkchoice" in
 	case "$ccmake" in
 		* ) 
 		ccmake .. 	#need to turn on Glue (connects VTK & ITK)
-		make -j10
+		make -j4
 		itk_dir=$PWD;;	#path to ITK build
 	esac;;
 	n|N|No|no ) 
-	echo "Will not install ITK."
+	echo "Will not install ITK. Removing ITK folder ..."
+	rm -rf $root/ITK
 	read -p "Please specify the path to your ITK build: " itk_dir;;	#path to ITK build
 	* ) 
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
@@ -100,22 +101,22 @@ case "$gmshchoice" in
 	y|Y|Yes|yes ) 
 	echo "installing gmsh ... This might take some time"
 	echo "downloading gmsh in "$Programs_path
-	cd $Programs_path
-	mv $root/gmsh .	#moving gmsh folder into Programs
+	cd $Programs_path && mv $root/gmsh . #moving gmsh folder into Programs
 	mkdir gmsh/build && cd gmsh/build 	#cd into build folder
 	echo "building gmsh in "$PWD
 	module purge						#clean up old modules listed
 	module load openmpi.intel/1.8.5 	#need to load new module
 	module load cmake 					#reload cmake
 	cmake ../ -DENABLE_FLTK=0 .. 		#building gmsh without GUI (need FLTK for that)
-	make -j10		
+	make -j4	
 	cd $root;;
 	n|N|No|no ) 
-	echo "Will not install gmsh. "
+	echo "Will not install gmsh. Removing gmsh folder ..."
+	rm -rf $root/gmsh
 	read -p "Please specify the path to your gmsh executable: " gmsh_path 	#need users gmsh path
 	cd $root
-	old_gmsh="'{}/gmsh/build/gmsh'.format(Programs_path)"
-	sed -i -e "s|$old_gmsh|$gmsh_path|g" mat2fem.py
+	old_gmsh="'{}/gmsh/build/gmsh'.format(Programs_path)" 	#original path to gmsh in mat2fem.py
+	sed -i -e "s|$old_gmsh|$gmsh_path|g" mat2fem.py 		#changed gmsh path in mat2fem.py
 	echo 'Have updated gmsh path in mat2fem.py to '$gmsh_path;;
 	* ) 
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
@@ -152,5 +153,6 @@ declare -a folders=($seg $Surfaces $Conv_Data $Matlab_Data
 for f in "${folders[@]}"
 do
 	mkdir $f
+	echo 'Created directory '$f
 done
 
