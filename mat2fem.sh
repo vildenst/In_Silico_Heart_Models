@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=mat2fem
 #SBATCH --account=nn9249k
-#SBATCH --time=10:00:00
+#SBATCH --time=24:00:00
 #SBATCH --nodes=1 --ntasks-per-node=8
 #SBATCH --mem-per-cpu=4G
 
