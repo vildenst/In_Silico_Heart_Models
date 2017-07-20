@@ -30,7 +30,7 @@ program=os.getenv('HOME')+'/Programs'
 #running the matlab script alignAll.m
 def run_matlab(nr_errors,err_list):
 	os.system('sh run_matlab.sh')	
-	scar_files=os.listdir(mat_scar)
+	scar_files=os.listdir(mat_scar+'/')
 	N2=len(scar_files) #files produces from matlab. 
 	if (N-nr_errors)*2 > N2:	#not all .mat files are processed
 		remove_error(N2,nr_errors,err_list)
