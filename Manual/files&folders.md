@@ -46,15 +46,19 @@ the matlab process to .vtk files. **software.sh** compiles ScarProcessing.
 These files are collected and modified from https://github.com/MAP-MD/Cardiac/tree/Cmr2Mesh.
 
 ### mat2fem.sh ###
-Bash job-script that loads necessary modules before calling **mat2fem.py**.
+Bash job script that loads necessary modules before calling **mat2fem.py**.
 
 ### mat2fem.py ###
 Python script that automates the process from transforming .mat files into FEM files.It results in Patient_i folders inside the FEM folder, 
 where each Patient_i folder should contain a **Patient_i.pts**, **Patient_i.elem**, **Patient_i.tris**, **risk_strat_1_16.sh** and **stim_coord.dat**.
 
 ### Manual ###
-A pipeline specific manual both for segmentation and mehsalyzer can be found in this folder. The original manuals from the developers
+* **segment_manual.pdf** contains detailed information on how to segment MRI images for this pipeline. The original manual from the developers
+can be found [here](http://medviso.com/documents/segment/manual.pdf).
+* **meshalyzer_manual.pdf** containes detailed information on how to pick out coordinates for the different pacing sites. The original manuals from the developers
 can be found [here](http://medviso.com/documents/segment/manual.pdf) and [here](https://github.com/cardiosolv/meshalyzer/tree/master/manual).
+* **Cardiology.pdf** is an introduction to cardiology, with some good background knowledge for understanding this pipeline.
+* **simulations.pdf** containes some information on how to analyze the simulations in step 5.
 
 ### scripts ###
 Folder containing four files used in the finite element mesh creations and simulations:
