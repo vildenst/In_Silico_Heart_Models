@@ -34,7 +34,7 @@ case "$vtkchoice" in
 	mkdir VTK-build && cd VTK-build	#cd into build folder
 	echo "building VTK in "$PWD
 	cmake ../VTK 	#running cmake with path to VTK src folder
-	make -j4
+	make -j10
 	vtk_dir=$PWD;;	#path to VTK build
 	n|N|No|no ) 
 	echo "Will not install VTK. Removing VTK folder ..."
@@ -67,7 +67,7 @@ case "$itkchoice" in
 	case "$ccmake" in
 		* ) 
 		ccmake .. 	#need to turn on Glue (connects VTK & ITK)
-		make -j4
+		make -j10
 		itk_dir=$PWD;;	#path to ITK build
 	esac;;
 	n|N|No|no ) 
@@ -99,23 +99,23 @@ make
 read -p "Do you want to install gmsh (y/n)? " gmshchoice
 case "$gmshchoice" in
 	y|Y|Yes|yes ) 
-	echo "installing gmsh ... This might take some time"
-	echo "downloading gmsh in "$Programs_path
+	echo "Installing gmsh ... This might take some time"
+	echo "Downloading gmsh in "$Programs_path
 	cd $Programs_path && mv $root/gmsh . #moving gmsh folder into Programs
 	mkdir gmsh/build && cd gmsh/build 	#cd into build folder
-	echo "building gmsh in "$PWD
+	echo "Building gmsh in "$PWD
 	module purge						#clean up old modules listed
 	module load openmpi.intel/1.8.5 	#need to load new module
 	module load cmake 					#reload cmake
 	cmake ../ -DENABLE_FLTK=0 .. 		#building gmsh without GUI (need FLTK for that)
-	make -j4	
+	make -j10	
 	cd $root;;
 	n|N|No|no ) 
 	echo "Will not install gmsh. Removing gmsh folder ..."
 	rm -rf $root/gmsh
 	read -p "Please specify the path to your gmsh executable: " gmsh_path 	#need users gmsh path
 	cd $root
-	old_gmsh="'{}/gmsh/build/gmsh'.format(Programs_path)" 	#original path to gmsh in mat2fem.py
+	old_gmsh="'{}/gmsh/build/gmsh'.format(os.getenv('HOME')+'/Programs')" 	#original path to gmsh in mat2fem.py
 	sed -i -e "s|$old_gmsh|$gmsh_path|g" mat2fem.py 		#changed gmsh path in mat2fem.py
 	echo 'Have updated gmsh path in mat2fem.py to '$gmsh_path;;
 	* ) 
