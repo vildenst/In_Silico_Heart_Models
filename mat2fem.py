@@ -124,6 +124,7 @@ os.system('echo PART 2 DONE: MAKING SURFACES')
 """ PART 3: GENERATION OF FEM FILES """
 os.mkdir(msh_srf)	#storing msh and msh output files here
 os.mkdir(fem)	#storing pts, elem and tris files here
+shutil.copyfile('{}remove_site_times.py'.format(script),fem+'/remove_site_times.py')
 
 #Generating .msh files from .vtk files
 def mergevtk(i,msh_srf,vtk_srf):	
@@ -189,7 +190,6 @@ def write_fem(input_file,outputname):
 def write_files(pat_path,i):
 	shutil.copyfile('{}stim_coord.dat'.format(script),pat_path+'/stim_coord.dat')
 	shutil.copyfile('{}base.par'.format(script),pat_path+'/base.par')
-	shutil.copyfile('{}remove_site_times.py'.format(script),fem+'/remove_site_times.py')
 	infile=open('{}risk_strat_1_16.sh'.format(script),'r').readlines()
 	outfile=open(pat_path+'/risk_strat_1_16.sh','w')
 	new_jobid='#SBATCH --job-name=Pat_{}'.format(i)
