@@ -189,6 +189,7 @@ def write_fem(input_file,outputname):
 def write_files(pat_path,i):
 	shutil.copyfile('{}stim_coord.dat'.format(script),pat_path+'/stim_coord.dat')
 	shutil.copyfile('{}base.par'.format(script),pat_path+'/base.par')
+	shutil.copyfile('{}remove_site_times.py'.format(script),fem+'/remove_site_times.py')
 	infile=open('{}risk_strat_1_16.sh'.format(script),'r').readlines()
 	outfile=open(pat_path+'/risk_strat_1_16.sh','w')
 	new_jobid='#SBATCH --job-name=Pat_{}'.format(i)
@@ -204,18 +205,18 @@ for i in range(1,N+1):
 		mergevtk(i,msh_srf,vtk_srf)	#generation of .msh files
 		os.system('echo Generated .msh file for Patient {}.'.format(i))
 
-	#generating pts, tris and elem files from msh files
-	write_fem('{}/Patient_{}.msh'.format(msh_srf,i),'Patient_{}'.format(i))
-	os.system('echo Generated .tris, .elem and .pts file for Patient {}.'.format(i))
+		#generating pts, tris and elem files from msh files
+		write_fem('{}/Patient_{}.msh'.format(msh_srf,i),'Patient_{}'.format(i))
+		os.system('echo Generated .tris, .elem and .pts file for Patient {}.'.format(i))
 
-	#moving FEM files to correct folder
-	patient_path='{}/Patient_{}'.format(fem,i)
-	os.mkdir(patient_path)
-	for j in ['tris', 'elem', 'pts']:
-		os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}.{}'.format(patient_path,i,j))
+		#moving FEM files to correct folder
+		patient_path='{}/Patient_{}'.format(fem,i)
+		os.mkdir(patient_path)
+		for j in ['tris', 'elem', 'pts']:
+			os.rename('Patient_{}.{}'.format(i,j), '{}/Patient_{}.{}'.format(patient_path,i,j))
 
-	#creating stim_coord.dat and rist_strat_1_16.sh in each patient folder
-	write_files(patient_path,i)
+		#creating stim_coord.dat and rist_strat_1_16.sh in each patient folder
+		write_files(patient_path,i)
 
 os.system('echo All .msh and .out.txt files are stored in Surfaces/mshFiles')
 os.system('echo All FEM files are stored in FEM/Data-{}'.format(time))
