@@ -116,7 +116,7 @@ case "$gmshchoice" in
 	read -p "Please specify the path to your gmsh executable: " gmsh_path 	#need users gmsh path
 	cd $root
 	old_gmsh="'{}/gmsh/build/gmsh'.format(os.getenv('HOME')+'/Programs')" 	#original path to gmsh in mat2fem.py
-	sed -i -e "s|$old_gmsh|$gmsh_path|g" mat2fem.py 		#changed gmsh path in mat2fem.py
+	sed -i -e "s|$old_gmsh|'$gmsh_path'|g" mat2fem.py 		#changed gmsh path in mat2fem.py
 	echo 'Have updated gmsh path in mat2fem.py to '$gmsh_path;;
 	* ) 
 	echo "Invalid answer. Please type y or n next time. Shutting down program ..."
